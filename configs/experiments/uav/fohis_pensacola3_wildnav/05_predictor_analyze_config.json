@@ -1,0 +1,49 @@
+{
+  "mode": "analyze",
+  "datasets": [
+    {
+      "dataset_file": "./input/uav/pensacola3/dataset.json",
+      "dataset_class": "portend.examples.uav.wildnav_dataset.WildnavDataSet",
+      "dataset_input_key": "image_path",
+      "dataset_output_key": "coordinates",
+      "predictions_output": "./output/uav/pensacola3/predictions_images.json"
+    },
+    {
+      "dataset_file": "./output/uav/pensacola3/drifted_images/drifted_images.json",
+      "dataset_class": "portend.examples.uav.wildnav_dataset.WildnavDataSet",
+      "dataset_input_key": "image_path",
+      "dataset_output_key": "coordinates",
+      "predictions_output": "./output/uav/pensacola3/predictions_images_drifted.json"
+    }
+  ],  
+  "model": {
+    "model_class": "portend.models.process_container_model.ProcessContainerModel",
+    
+    "model_input_folder": "pensacola3/query",
+    "model_output_file": "pensacola3/results/output.csv",
+    "model_extra_output_files": ["pensacola3/results/calculated_coordinates.csv"],
+
+    "model_container_name": "wildnav",
+    "model_container_params": "wildnav.py --path /io --map pensacola3/map --photos pensacola3/query --results pensacola3/results",
+    "model_container_io_path": "/io",
+    "model_container_gpus": "2"
+  },
+  "analysis":
+  {
+    "packaged_folder": "./output/uav/pensacola3/packaged",
+    "metrics_output": "./output/uav/pensacola3/metrics.json",
+    "metrics":
+    [
+      {
+        "name": "ATC",
+        "metric_class": "portend.metrics.atc.atc.ATCMetric",
+        "params":
+        {
+          "prep_module": "portend.examples.uav.wildnav_prep",
+          "additional_data": "calculated_coordinates.csv",
+          "distance_error_threshold": 5
+        }
+      }
+    ]
+  }
+}

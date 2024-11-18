@@ -1,0 +1,40 @@
+{
+  "dataset": {  
+    "dataset_class": "portend.examples.iceberg.iceberg_dataset.IcebergDataSet",
+    "dataset_file": "./output/merged_dataset.json",
+    "dataset_output_key": "is_iceberg"
+  },
+  "output":
+  {
+    "output_dataset_file": "./output/00_gradual_drift.json"
+  },
+  "drift_scenario":
+  {
+    "condition": "gradual",
+    "module": "portend.drifts.temporal.temporal_drift",
+    "params":
+    {
+      "submodule": "prevalence_drift",
+      "bins":
+      [
+        ["no_iceberg", 0],
+        ["iceberg", 1]
+      ],
+      "timestamps":
+      {
+        "start_datetime": "2022-05-21",
+        "increment_unit": "H"
+      },  
+      "max_num_samples":  10026,
+      "sample_group_size": 1671,
+      "prevalences":
+      {
+        "1":
+        {
+          "percentages_by_sample_group": [65, 63, 60, 55, 45, 40],
+          "prevalence_repeat": false
+        }
+      }
+    }
+  }
+}

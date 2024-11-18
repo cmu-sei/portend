@@ -1,0 +1,12 @@
+{
+    "action": "config_gen",
+    "base_file": "./configs/uav/experiments/fohis_wildnav/03a_drifter_fog_config.json",
+    "output_folder": "./configs/uav/experiments/configs",
+    "fields":
+    [
+        {
+            "key": "drift_scenario.params.vra", 
+            "min": "100", "max": "500", "step": "100"
+        }
+    ]
+}

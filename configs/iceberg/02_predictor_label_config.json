@@ -1,0 +1,19 @@
+{
+  "mode": "label",
+  "datasets": [
+    {
+      "dataset_file": "./input/iceberg/test.json",    
+      "dataset_class": "portend.examples.iceberg.iceberg_dataset.IcebergDataSet",
+      "dataset_output_key": "is_iceberg",
+      "labelled_output": "./output/iceberg/labelled_test.json"
+    }
+  ],    
+  "model": {
+    "model_class": "portend.examples.iceberg.iceberg_model.IcebergModel",
+    "model_file": "./output/iceberg/trained_model"
+  },
+  "classification":
+  {
+    "threshold": 0.5
+  }
+}

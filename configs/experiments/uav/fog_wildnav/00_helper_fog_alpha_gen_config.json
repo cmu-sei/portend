@@ -1,0 +1,11 @@
+{
+    "action": "config_gen",
+    "base_file": "./configs/experimentsuav/fog_wildnav/03a_drifter_fog_config.json",
+    "fields":
+    [
+        {
+            "key": "drift_scenario.params.blur.alpha", 
+            "min": "0.05", "max": "0.25", "step": "0.05"
+        }
+    ]
+}

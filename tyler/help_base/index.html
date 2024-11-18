@@ -1,0 +1,87 @@
+<!--
+Portend Toolset
+
+Copyright 2024 Carnegie Mellon University.
+
+NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+
+Licensed under a MIT (SEI)-style license, please see license.txt or contact permission@sei.cmu.edu for full terms.
+
+[DISTRIBUTION STATEMENT A] This material has been approved for public release and unlimited distribution.  Please see Copyright notice for non-US Government use and distribution.
+
+This Software includes and/or makes use of Third-Party Software each subject to its own license.
+
+DM24-1299
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tyler: Drift inducing map service</title>
+  </head>
+  <style>
+    .t_display {padding-top:5px;padding-left:15px;padding-bottom:10px;}
+    .t_table {border-collapse: collapse;}
+    .t_table td {border-bottom: 1px solid black; border-top: 1px solid black; }
+  </style>
+  <body>
+    <h2>Tyler: Drift inducing map service</h2>
+
+    <h3>Overview</h3>
+    
+    Tyler is a map tile server and map appliction based on leaflet.  The map application is accessed at:
+    <div class=t_display>
+    <a href="http://[host]:6501/map">http://[host]:6501/map</a>
+    </div>
+    <p>
+
+    Individual tiles are accessed with a URL of the form:
+    <div class=t_display>
+      http://[host]:6501/tile/z/y/x
+    </div>
+
+    The tile url may optionally include "/img.png" as a suffix (which is used by some map applications).
+
+    <h3>Drifted tiles</h3>
+
+    To return drifted tiles (or maps), a query string is appended to
+    the base URL.  The parameter 'drift' specifies the specific
+    drifter to be used.  Additional drifter-specific parameters may
+    also be specified.  For example:
+    <div class=t_display>
+      <a href="http://[host]:6501/map?drift=fog">http://[host]:6501/map?drift=fog</a>
+    </div>
+
+    will generate a map using the "fog" drifter with default
+    parameters.  Additional parameters are specified by adding them to
+    the URL.  For example:
+    <div class=t_display>
+      <a href="http://[host]:6501/map?drift=fog&gray=0.1&noise=0.05">http://[host]:6501/map?drift=fog&gray=0.1&noise=0.05</a>
+    </div>
+    will create a map with fog drifted tiles having a gray value of 0.1 and a noise value of 0.05.
+    
+    <h4>Fog</h4>
+
+    The fog drifter uses the query string "?drift=fog" and supports the following parameters:
+
+    <div class=t_display>
+    <table class=t_table>
+      <tr><td>gray=<i>n</i><td>Gray-level of the fog to be blended with the source image. <i>n</i> can be between 0 and 1 with 0 being black and 1 being white.  The default is 0.3.</td></tr>
+      <tr><td>blend=<i>n</i><td>Blending parameter between source image and gray field. <i>n</i> can be between 0 and 1 with 0 being no fog, and 1 being solid fog.  The default is 0.5.</td></tr>
+      <tr><td>noise=<i>n</i><td>Amount of noise to induce in the image. <i>n</i> can be between 0 and 1 with 0 being no noise, and 1 being full-scale noise.  The default is 0.0.</td></tr>
+      <tr><td>blur.radius=<i>k</i><td>Radius in pixels for blur pattern. <i>k</i> can be an odd number 1 or greater (or 0 to disable blur) .  The default is 0.</td></tr>
+      <tr><td>blur.alpha=<i>n</i><td>Blending value from neighbor pixels for blur. <i>n</i> can be between 0 and 1 with 0 being no blending, and 1 being full blending.  The default is 1.</td></tr>
+    </table>
+    </div>
+
+    <h4>Flood</h4>
+    The flood drifter uses the query string "?drift=flood" and supports the following parameters:
+
+    <div class=t_display>
+    <table class=t_table>
+      <tr><td>level=<i>k</i><td></td></tr>
+    </table>
+    </div>
+    
+  </body>
+</html>

@@ -1,0 +1,6 @@
+{
+    "generator_config_file_prefix": "01_helper",
+    "monitor_config_output_file": "./output/uav/nola/monitor_config.json",
+    "num_alert_levels": 4
+}
+  

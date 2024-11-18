@@ -1,0 +1,6 @@
+{
+    "generator_config_file_prefix": "00_helper",
+    "monitor_config_output_file": "./output/uav/pensacola2/monitor_config.json",
+    "num_alert_levels": 4
+}
+  

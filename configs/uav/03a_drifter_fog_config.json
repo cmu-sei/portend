@@ -1,0 +1,27 @@
+{
+  "dataset": {
+    "dataset_file": "./input/uav/sample/dataset.json",
+    "dataset_class": "portend.datasets.image_dataset.ImageDataSet"
+  },
+  "output":
+  {
+    "output_dataset_file": "./output/uav/sample/drifted_images/drifted_images.json"
+  },
+  "drift_scenario":
+  {
+    "condition": "fog",
+    "module": "portend.drifts.image.image_drift",
+    "params":
+    {
+      "submodule": "fog.fog",
+      "img_output_dir": "./output/uav/sample/drifted_images",
+      "gray": 0.3,
+      "blend": 0.5,
+      "noise": 0.0,
+      "blur": {
+        "radius": 2,
+        "alpha": 1
+      }      
+    }
+  }
+}

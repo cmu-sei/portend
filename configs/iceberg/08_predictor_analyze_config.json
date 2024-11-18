@@ -1,0 +1,58 @@
+{
+  "mode": "analyze",
+  "datasets": [
+    {
+      "dataset_file": "./output/iceberg/temporal_drift.json",
+      "dataset_file_base": "./output/iceberg/merged_dataset.json",
+      "dataset_class": "portend.examples.iceberg.iceberg_dataset.IcebergDataSet",
+      "dataset_output_key": "is_iceberg",
+      "predictions_output": "./output/iceberg/predictions.json"
+    }
+  ],  
+  "model": {
+    "model_class": "portend.examples.iceberg.iceberg_model.IcebergModel",
+    "model_file": "./output/iceberg/trained_model"
+  },
+  "classification":
+  {
+    "threshold": 0.5
+  },
+  "time_series":
+  {
+    "ts_model": "./output/iceberg/trained_model_ts",
+    "time_interval":
+    {
+      "starting_interval": "2023-03-18",
+      "interval_unit": "D"
+    }
+  },
+  "analysis":
+  {
+    "metrics_output": "./output/iceberg/metrics_output.json",
+    "metrics":
+    [
+      {
+        "name": "kl-divergence",
+        "type": "DistanceMetric",
+        "metric_class": "portend.metrics.time_series.kl_divergence.KLDivergenceMetric",
+        "params":
+        {
+          "distribution": "normal",
+          "range_start": -1,
+          "range_end": 1000,
+          "range_step": 1
+        }
+      },
+      {
+        "name": "Z Test / Student's t",
+        "type": "ErrorMetric",
+        "metric_class": "portend.metrics.time_series.z_test.ZTestMetric"
+      },
+      {
+        "name": "Kolmogorov-Smirnov Statistic",
+        "type": "ErrorMetric",
+        "metric_class": "portend.metrics.time_series.kolmogorov_smirnov.KolmogorovSmirnovMetric"
+      }
+    ]
+  }
+}

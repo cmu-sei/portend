@@ -1,0 +1,5 @@
+{
+    "action": "image_json",
+    "image_folder": "./input/uav/fiesta",
+    "dataset_class": "portend.datasets.gps_image_dataset.GPSImageDataSet"
+}

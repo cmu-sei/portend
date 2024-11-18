@@ -1,0 +1,49 @@
+{
+  "mode": "analyze",
+  "datasets": [
+    {
+      "dataset_file": "./input/uav/nola/dataset.json",
+      "dataset_class": "portend.examples.uav.wildnav_dataset.WildnavDataSet",
+      "dataset_input_key": "image_path",
+      "dataset_output_key": "coordinates",
+      "predictions_output": "./output/uav/nola/predictions_images.json"
+    },
+    {
+      "dataset_file": "./output/uav/nola/drifted_images/drifted_images.json",
+      "dataset_class": "portend.examples.uav.wildnav_dataset.WildnavDataSet",
+      "dataset_input_key": "image_path",
+      "dataset_output_key": "coordinates",
+      "predictions_output": "./output/uav/nola/predictions_images_drifted.json"
+    }
+  ],  
+  "model": {
+    "model_class": "portend.models.process_container_model.ProcessContainerModel",
+    
+    "model_input_folder": "nola/query",
+    "model_output_file": "nola/results/output.csv",
+    "model_extra_output_files": ["nola/results/calculated_coordinates.csv"],
+
+    "model_container_name": "wildnav",
+    "model_container_params": "wildnav.py --path /io --map nola/map --photos nola/query --results nola/results",
+    "model_container_io_path": "/io",
+    "model_container_gpus": "2"
+  },
+  "analysis":
+  {
+    "packaged_folder": "./output/uav/nola/packaged",
+    "metrics_output": "./output/uav/nola/metrics.json",
+    "metrics":
+    [
+      {
+        "name": "ATC",
+        "metric_class": "portend.metrics.atc.atc.ATCMetric",
+        "params":
+        {
+          "prep_module": "portend.examples.uav.wildnav_prep",
+          "additional_data": "calculated_coordinates.csv",
+          "distance_error_threshold": 5
+        }
+      }
+    ]
+  }
+}

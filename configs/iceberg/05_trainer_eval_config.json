@@ -1,0 +1,23 @@
+{
+  "training": "off",
+  "cross_validation": "on",
+  "evaluation": "on",
+  "time_series_training": "off",
+
+  "dataset": {
+    "dataset_file": "./output/iceberg/merged_dataset.json",
+    "dataset_class": "portend.examples.iceberg.iceberg_dataset.IcebergDataSet",
+    "dataset_output_key": "is_iceberg"
+  }, 
+
+  "model": {
+    "model_class": "portend.examples.iceberg.iceberg_model.IcebergModel",
+    "model_file": "./output/iceberg/trained_model"    
+  },
+  "hyper_parameters":
+  {
+    "epochs": 10,
+    "batch_size": 32,
+    "validation_size": 0.25
+  }
+}

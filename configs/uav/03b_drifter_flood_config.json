@@ -1,0 +1,27 @@
+{
+  "dataset": {
+    "dataset_file": "./input/uav/sample/dataset.json",
+    "dataset_class": "portend.datasets.image_dataset.ImageDataSet"
+  },
+  "output":
+  {
+    "output_dataset_file": "./output/uav/sample/drifted_images/drifted_images.json"
+  },
+  "drift_scenario":
+  {
+    "condition": "flood",
+    "module": "portend.drifts.image.image_drift",
+    "params":
+    {
+      "submodule": "flood.flood",
+      "img_output_dir": "./output/uav/sample/drifted_images",
+      "thresh": 4,
+      "trans": 2,
+      "color": {
+        "r": 75,
+        "g": 54,
+        "b": 25
+      }  
+    }
+  }
+}

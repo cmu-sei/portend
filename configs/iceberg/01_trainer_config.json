@@ -1,0 +1,36 @@
+{
+  "training": "on",
+  "cross_validation": "off",
+  "evaluation": "off",
+  "time_series_training": "on",
+
+  "dataset": {
+    "dataset_file": "./input/iceberg/train.json",    
+    "dataset_class": "portend.examples.iceberg.iceberg_dataset.IcebergDataSet",
+    "dataset_output_key": "is_iceberg"
+  },
+  "model": {
+    "model_class": "portend.examples.iceberg.iceberg_model.IcebergModel"
+  },
+  "output_model": "./output/iceberg/trained_model",
+  "hyper_parameters":
+  {
+    "epochs": 10,
+    "batch_size": 32,
+    "validation_size": 0.25
+  },
+
+  "ts_output_model": "./output/iceberg/trained_model_ts",  
+  "ts_hyper_parameters":
+  {
+    "order_p": 3,
+    "order_q": 1,
+    "order_d": 1
+  },
+  "time_interval":
+  {
+    "samples_per_time_interval": "50",
+    "starting_interval": "2021-11-01",
+    "interval_unit": "D"
+  }
+}

@@ -1,0 +1,34 @@
+{
+    "metrics": [
+        {
+            "name": "ATC",
+            "metric_class": "portend.metrics.atc.atc.ATCMetric",
+            "params": {
+                "prep_module": "portend.examples.uav.wildnav_prep",
+                "additional_data": "calculated_coordinates.csv",
+                "distance_error_threshold": 5,
+                "average_atc_threshold": -14.74
+            }
+        }
+    ],
+    "alerts": {
+        "ATC": [
+            {
+                "less_than": 14,
+                "alert_level": "critical"
+            },
+            {
+                "less_than": 34,
+                "alert_level": "warning3"
+            },
+            {
+                "less_than": 54,
+                "alert_level": "warning2"
+            },
+            {
+                "less_than": 74,
+                "alert_level": "warning1"
+            }     
+        ]
+    }
+}

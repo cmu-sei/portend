@@ -1,0 +1,45 @@
+{
+  "mode": "analyze",
+  "datasets": [
+    {
+      "dataset_file": "./output/temporal_drift.json",
+      "dataset_file_base": "./output/merged_dataset.json",
+      "dataset_class": "portend.examples.iceberg.iceberg_dataset.IcebergDataSet",
+      "dataset_output_key": "is_iceberg",
+      "predictions_output": "./output/oversample_hellinger_predictions.json"
+    }
+  ],  
+  "classification":
+  {
+    "threshold": 0.5
+  },
+  "time_series":
+  {
+    "ts_model": "./output/trained_model_ts",
+    "time_interval":
+    {
+      "starting_interval": "2023-03-18",
+      "interval_unit": "D"
+    }
+  },
+  "analysis":
+  {
+    "metrics_output": "../output/oversample_hellinger_metrics.json",
+    "metrics":
+    [
+      {
+        "name": "hellinger",
+        "type": "DistanceMetric",
+        "module": "portend.metrics.time_series.hellinger",
+        "params":
+        {
+          "distribution": "normal",
+          "range_start": -1,
+          "range_end": 1000,
+          "range_step": 1
+        }
+      }
+    ]
+  }
+}
+

@@ -1,0 +1,6 @@
+.gitignore
+.dockerignore
+.DS_Store
+Dockerfile
+mapper/temp_io/
+*.sh

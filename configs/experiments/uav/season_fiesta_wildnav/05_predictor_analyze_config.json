@@ -1,0 +1,43 @@
+{
+  "mode": "analyze",
+  "datasets": [
+    {
+      "dataset_file": "./input/uav/fiesta/dataset.json",
+      "dataset_class": "portend.examples.uav.wildnav_dataset.WildnavDataSet",
+      "dataset_input_key": "image_path",
+      "dataset_output_key": "coordinates",
+      "predictions_output": "./output/uav/fiesta/predictions_images.json"
+    }
+  ],  
+  "model": {
+    "model_class": "portend.models.process_container_model.ProcessContainerModel",
+    
+    "model_input_folder": "fiesta/query",
+    "model_output_file": "fiesta/results/output.csv",
+    "model_extra_output_files": ["fiesta/results/calculated_coordinates.csv"],
+
+    "model_container_name": "wildnav",
+    "model_container_params": "wildnav.py --path /io --map fiesta/map --photos fiesta/query --results fiesta/results --no_rotate",
+    "model_container_io_path": "/io",
+    "model_container_gpus": "2"
+  },
+  "analysis":
+  {
+    "packaged_folder": "./output/uav/fiesta/packaged",
+    "metrics_output": "./output/uav/fiesta/metrics.json",
+    "metrics":
+    [
+      {
+        "name": "ATC",
+        "metric_class": "portend.metrics.atc.atc.ATCMetric",
+        "params":
+        {
+          "prep_module": "portend.examples.uav.wildnav_prep",
+          "additional_data": "calculated_coordinates.csv",
+          "distance_error_threshold": 5,
+          "average_atc_threshold": -14.214309983348173
+        }
+      }
+    ]
+  }
+}

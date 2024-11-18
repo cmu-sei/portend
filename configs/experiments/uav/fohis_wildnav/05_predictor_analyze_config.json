@@ -1,0 +1,48 @@
+{
+  "mode": "analyze",
+  "datasets": [
+    {
+      "dataset_file": "./input/uav/wildnav25/wildnav25_images.json",
+      "dataset_class": "portend.examples.uav.wildnav_dataset.WildnavDataSet",
+      "dataset_input_key": "image_path",
+      "dataset_output_key": "coordinates",
+      "predictions_output": "./output/uav/wildnav25/predictions_images_wildnav25.json"
+    },
+    {
+      "dataset_file": "./output/uav/wildnav25/drifted_images.json",
+      "dataset_class": "portend.examples.uav.wildnav_dataset.WildnavDataSet",
+      "dataset_input_key": "image_path",
+      "dataset_output_key": "coordinates",
+      "predictions_output": "./output/uav/wildnav25/predictions_images_drifted.json"
+    }
+  ],  
+  "model": {
+    "model_class": "portend.models.process_container_model.ProcessContainerModel",
+    
+    "model_input_folder": "wildnav/query",
+    "model_output_file": "wildnav/results/output.csv",
+    "model_extra_output_files": ["wildnav/results/calculated_coordinates.csv"],
+
+    "model_container_name": "wildnav",
+    "model_container_params": "wildnav.py --path /io --map wildnav/map --photos wildnav/query --results wildnav/results",
+    "model_container_io_path": "/io"
+  },
+  "analysis":
+  {
+    "packaged_folder": "./output/uav/wildnav25/packaged",
+    "metrics_output": "./output/uav/wildnav25/metrics_nust.json",
+    "metrics":
+    [
+      {
+        "name": "ATC",
+        "metric_class": "portend.metrics.atc.atc.ATCMetric",
+        "params":
+        {
+          "prep_module": "portend.examples.uav.wildnav_prep",
+          "additional_data": "calculated_coordinates.csv",
+          "distance_error_threshold": 5
+        }
+      }
+    ]
+  }
+}

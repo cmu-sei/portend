@@ -1,0 +1,41 @@
+{
+  "mode": "analyze",
+  "datasets": [
+    {
+      "dataset_file": "./input/uav/nust_images.json",
+      "dataset_class": "portend.examples.uav.wildnav_dataset.WildnavDataSet",
+      "dataset_input_key": "image_path",
+      "dataset_output_key": "coordinates",
+      "predictions_output": "./output/uav/predictions_images_nust.json"
+    }
+  ],  
+  "model": {
+    "model_class": "portend.models.process_container_model.ProcessContainerModel",
+    
+    "model_input_folder": "nust/query",
+    "model_output_file": "nust/results/output.csv",
+    "model_extra_output_files": ["nust/results/calculated_coordinates.csv"],
+
+    "model_container_name": "wildnav",
+    "model_container_params": "wildnav.py --path /io --map nust/map --photos nust/query --results nust/results",
+    "model_container_io_path": "/io"
+  },
+  "analysis":
+  {
+    "packaged_folder": "./output/uav/packaged",
+    "metrics_output": "./output/metrics_nust.json",
+    "metrics":
+    [
+      {
+        "name": "ATC",
+        "metric_class": "portend.metrics.atc.atc.ATCMetric",
+        "params":
+        {
+          "prep_module": "portend.examples.uav.wildnav_prep",
+          "additional_data": "calculated_coordinates.csv",
+          "distance_error_threshold": 5
+        }
+      }
+    ]
+  }
+}

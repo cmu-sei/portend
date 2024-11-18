@@ -1,0 +1,83 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "portend"
+version = "0.0.1"
+authors = [
+  { name="Sebastian Echeverria", email="secheverria@sei.cmu.edu" },
+]
+description = "The Portend toolset for modeling and predicting ML model drift."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+    "numpy==1.24.1",
+    "pandas==1.5.3",
+    "scikit-learn==1.2.1",
+    "statsmodels==0.13.5",
+    "scipy==1.10.0",
+    "tensorflow==2.13.0",
+    "torch==1.13.1",
+    "opencv-python==4.7.0.68",
+    "natsort==8.4.0",
+    "pip-system-certs",
+    "noise==1.2.2",
+    "pillow==10.1.0",    
+]
+
+[project.optional-dependencies]
+dev = [
+    "build",
+    "isort==5.12.0",
+    "black==23.9.1",
+    "flake8==6.1.0",
+    "mypy==1.5.1",
+    "types-requests==2.31.0.2",
+    "pytest==7.4.0",
+    "pytest-cov==4.1.0",
+]
+tfmac = ["tensorflow-metal==1.0.0"]
+
+[tool.hatch.build.targets.sdist]
+only-include = ["portend"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["portend"]
+
+[tool.isort]
+profile="black"
+line_length = 80
+known_first_party=["portend"]
+
+[tool.black]
+line-length = 80
+target-version = ['py38']
+
+[tool.mypy]
+mypy_path = "portend"
+check_untyped_defs = true
+disallow_any_generics = true
+ignore_missing_imports = true
+no_implicit_optional = true
+show_error_codes = true
+strict_equality = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unreachable = true
+warn_unused_configs = true
+no_implicit_reexport = true
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "portend"
+]
+testpaths = [
+    "test",
+]

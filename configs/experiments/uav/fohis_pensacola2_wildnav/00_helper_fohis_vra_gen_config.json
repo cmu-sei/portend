@@ -1,0 +1,11 @@
+{
+    "action": "config_gen",
+    "base_file": "./configs/experiments/uav/fohis_pensacola2_wildnav/03a_drifter_fog_config.json",
+    "fields":
+    [
+        {
+            "key": "drift_scenario.params.vra", 
+            "min": "100", "max": "200", "step": "100"
+        }
+    ]
+}

@@ -1,0 +1,32 @@
+{
+  "dataset": {
+    "dataset_class": "portend.examples.iceberg.iceberg_dataset.IcebergDataSet",
+    "dataset_file": "./output/merged_dataset.json",
+    "dataset_output_key": "is_iceberg"
+  },
+  "output":
+  {
+    "output_dataset_file": "./output/random_drift.json"
+  },
+  "drift_scenario":
+  {
+    "condition": "random",
+    "module": "portend.drifts.temporal.temporal_drift",
+    "params":
+    {
+      "submodule": "random_drift",
+      "bins":
+      [
+        ["no_iceberg", 0],
+        ["iceberg", 1]
+      ],
+      "timestamps":
+      {
+        "start_datetime": "2022-05-21",
+        "increment_unit": "H"
+      },
+      "max_num_samples":  100,
+      "sample_group_size": 10
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "dataset": {
+    "dataset_file": "./input/uav/pensacola3/dataset.json",
+    "dataset_class": "portend.datasets.image_dataset.ImageDataSet"
+  },
+  "output":
+  {
+    "output_dataset_file": "./output/uav/pensacola3/drifted_images/drifted_images.json"
+  },
+  "drift_scenario":
+  {
+    "condition": "fog2",
+    "module": "portend.drifts.image.image_drift",
+    "params":
+    {
+      "submodule": "fohis.fohis",
+      "img_output_dir": "./output/uav/pensacola3/drifted_images",
+      "vra": 100
+    }
+  }
+}

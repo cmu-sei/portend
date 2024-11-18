@@ -1,0 +1,6 @@
+{
+  "action": "merge",
+  "dataset1": "./input/iceberg/train.json",
+  "dataset2": "./output/iceberg/labelled_test.json",
+  "output": "./output/iceberg/merged_dataset.json"
+}
